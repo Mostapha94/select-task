@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('country.index');
 });
 
 Route::get('/countries',ListCountries::class)->name('country.index');

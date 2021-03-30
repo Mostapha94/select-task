@@ -15,8 +15,10 @@ livewire
 
 composer install
 
-php artisan migrate db:seed
+php artisan migrate --seed
 or use existing database that atached in project root
+
+php artisan key:generate
 
 ## project links
 task 1 (SOAP)
