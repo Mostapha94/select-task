@@ -13,14 +13,21 @@ livewire
 
 ## installation steps after clone project
 
+## install packages
+
 composer install
+
+## run database migrations
 
 php artisan migrate --seed
 or use existing database that atached in project root
 
+## generate key
+
 php artisan key:generate
 
 ## project links
+
 task 1 (SOAP)
 1-list countries
 http://localhost/select-task/countries
