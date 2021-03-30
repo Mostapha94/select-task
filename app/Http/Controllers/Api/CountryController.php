@@ -7,6 +7,7 @@ use App\Http\Resources\CountriesResource;
 use App\Http\Resources\CountryResource;
 use App\Models\Country;
 use App\Traits\GeneralTrait;
+use Illuminate\Http\Request;
 use Exception;
 
 class CountryController extends Controller
@@ -43,6 +44,32 @@ class CountryController extends Controller
             if($country)
                 return (new CountryResource($country))->additional($additional);
             return $additional['response'];
+        }catch(Exception $ex){
+            return $this->someThingError($ex->getMessage());
+        }
+    }
+    /**
+     * store countries in data base
+     * @param $request
+     * @return \Illuminate\Http\Response
+    */
+    public function store(Request $request){
+        try{
+            $client = new \SoapClient("http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL");
+            $response =json_encode($client->ListOfCountryNamesByName());
+            $data = json_decode($response,true);
+            $countries=$data['ListOfCountryNamesByNameResult']['tCountryCodeAndName'];
+            foreach($countries as $i=>$country)
+            {
+                $obj = Country::firstOrNew(
+                    ['code' =>  $country['sISOCode']],
+                    ['name' =>  $country['sName']]
+                );
+                $obj->save();                
+            }
+            session()->flash('success','New countries saved successfully !');
+            return redirect()->back();
+
         }catch(Exception $ex){
             return $this->someThingError($ex->getMessage());
         }

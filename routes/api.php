@@ -20,5 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/all-countries',[CountryController::class,'index'])->name('api.country.index');
+Route::post('/store-countries',[CountryController::class,'store'])->name('api.country.store');
 Route::get('/country/{countryCode}',[CountryController::class,'show'])->name('api.country.show');
 

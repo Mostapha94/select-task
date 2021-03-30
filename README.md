@@ -19,7 +19,7 @@ composer install
 
 ## run database migrations
 
-php artisan migrate --seed
+php artisan migrate 
 or use existing database that atached in project root
 
 ## generate key

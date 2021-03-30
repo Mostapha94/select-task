@@ -17,6 +17,7 @@ class CreateCountries extends Migration
             $table->bigIncrements('id');
             $table->string('code', 5)->index();
             $table->string('name', 100);
+            $table->timestamps();
         });
     }
 
